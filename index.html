@@ -523,17 +523,17 @@ const EGGS=[
   {id:'basic',name:'Basic Egg',cost:150,cur:'cash',c:['#8be9fd','#3a86ff','#ffffff'],pets:[
     {id:'dog',name:'Dog',emoji:'🐶',power:2,rar:'Common',w:60},
     {id:'bunny',name:'Bunny',emoji:'🐰',power:3,rar:'Uncommon',w:30},
-    {id:'hamster',name:'Hamster',emoji:'🐹',power:5,rar:'Rare',w:10}]},
-  {id:'forest',name:'Forest Egg',cost:1500,cur:'cash',c:['#c4f77b','#27ae60','#ffffff'],pets:[
-    {id:'fox',name:'Fox',emoji:'🦊',power:8,rar:'Uncommon',w:55},
-    {id:'bear',name:'Bear',emoji:'🐻',power:15,rar:'Rare',w:35},
-    {id:'wolf',name:'Wolf',emoji:'🐺',power:30,rar:'Epic',w:10}]},
-  {id:'ocean',name:'Ocean Egg',cost:10000,cur:'cash',c:['#a8f4ff','#0a84c9','#ffffff'],pets:[
-    {id:'dolphin',name:'Dolphin',emoji:'🐬',power:60,rar:'Rare',w:55},
-    {id:'shark',name:'Shark',emoji:'🦈',power:130,rar:'Epic',w:30},
-    {id:'octopus',name:'Octopus',emoji:'🐙',power:300,rar:'Legendary',w:13},
-    {id:'kraken',name:'Kraken',emoji:'🦑',power:1500,rar:'Mythic',w:1.8},
-    {id:'whale',name:'Whale',emoji:'🐋',power:10000,rar:'Secret',w:0.2}]},
+    {id:'hamster',name:'Hamster',emoji:'🐹',power:4,rar:'Rare',w:10}]},
+  {id:'forest',name:'Forest Egg',cost:600,cur:'cash',c:['#c4f77b','#27ae60','#ffffff'],pets:[
+    {id:'fox',name:'Fox',emoji:'🦊',power:5,rar:'Uncommon',w:55},
+    {id:'bear',name:'Bear',emoji:'🐻',power:7,rar:'Rare',w:35},
+    {id:'wolf',name:'Wolf',emoji:'🐺',power:9,rar:'Epic',w:10}]},
+  {id:'ocean',name:'Ocean Egg',cost:3000,cur:'cash',c:['#a8f4ff','#0a84c9','#ffffff'],pets:[
+    {id:'dolphin',name:'Dolphin',emoji:'🐬',power:12,rar:'Rare',w:55},
+    {id:'shark',name:'Shark',emoji:'🦈',power:16,rar:'Epic',w:30},
+    {id:'octopus',name:'Octopus',emoji:'🐙',power:22,rar:'Legendary',w:13},
+    {id:'kraken',name:'Kraken',emoji:'🦑',power:32,rar:'Mythic',w:1.8},
+    {id:'whale',name:'Whale',emoji:'🐋',power:50,rar:'Secret',w:0.2}]},
   {id:'exclusive1',name:'Exclusive Egg #1',cost:20,sale3:50,cur:'dia',ex:true,choc:true,noLuck:true,c:['#a8693a','#5a3217','#f1d9b5'],pets:[
     {id:'cookiecat',name:'Cookie Cat',emoji:'🍪',mult:1.1,rar:'Exclusive',w:60},
     {id:'donutdog',name:'Donut Dog',emoji:'🍩',mult:1.2,rar:'Exclusive',w:28},
@@ -909,7 +909,7 @@ function renderPanel(){
         <div class="card"><h3>🎁 Index Rewards</h3>
           ${IDX_MILESTONES.map(n=>{
             const done=(S.idxClaimed||[]).includes(n),can=owned>=n&&!done;
-            return `<div class="msrow"><div class="msl"><b>${n} Pets</b><span>${Math.min(owned,n)}/${n}${' · Forever'}</span></div>
+            return `<div class="msrow"><div class="msl"><b>${n} Pets</b><span>${Math.min(owned,n)}/${n}</span></div>
               ${done?'<div class="btn green disabled msb">✅ Claimed</div>':`<button class="btn ${can?'gold':'blue'} ${can?'':'disabled'}" data-claimidx="${n}">${can?'Claim ':''}${idxLabel(n)}</button>`}</div>`}).join('')}
         </div>`;
     if(p.querySelector('.idxmain')&&idxInPlace){
