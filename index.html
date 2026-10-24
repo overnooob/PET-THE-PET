@@ -439,6 +439,51 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 @media(max-height:520px) and (orientation:landscape){
   .six .mpet .rpet{font-size:36px}
 }
+
+/* =====================================================
+   v3: phone balance (touch targets, scroll, performance)
+===================================================== */
+html{overscroll-behavior:none}
+.wbody{-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.setrow .sn{min-width:0;line-height:1.15}
+.msrow .btn{white-space:normal;line-height:1.1}
+@media(hover:none) and (pointer:coarse){
+  .plus{width:38px;height:38px;font-size:22px}
+  .xbtn{width:44px;height:44px}
+  .tgl{min-height:40px}
+  .btn{min-height:40px}
+  .petcard{padding-bottom:14px}
+}
+@media(max-width:560px){
+  .hatchwin{max-height:96dvh;overflow-y:auto}
+  .setrow{gap:8px}
+  .setrow .sn{font-size:14.5px}
+  .tgl{min-width:68px;padding:6px 8px;font-size:14px}
+  .setrow.vol .sn{width:84px}
+  .setrow .vv{width:40px;font-size:13px}
+  .sect{font-size:17px}
+  .coll{font-size:13px}
+  .top{padding-top:2px}
+  .stats{gap:6px}
+  .hint{font-size:13px}
+  .egg-card .odds{gap:4px}
+  .msl{min-width:0}
+}
+@media(max-width:360px){
+  .setrow.vol .sn{width:70px}
+  .dbtn .l{font-size:8px}
+  .win{width:98vw}
+}
+
+/* hatch: equal gap between Auto Hatch button and Awesome! for x1 / x3 / x6 */
+#hatchInfo{min-height:0;padding-bottom:2px}
+#hatchOk{margin-top:14px}
+
+/* codes */
+.coderow{display:flex;gap:8px;align-items:center}
+#codeInput{flex:1;min-width:0;height:44px;padding:0 12px;border-radius:12px;border:3px solid var(--ink);background:#0b1236;color:#fff;font-family:inherit;font-weight:800;font-size:16px;outline:none;-webkit-user-select:text;user-select:text;box-shadow:inset 0 3px 0 rgba(0,0,0,.35)}
+#codeInput:focus{border-color:#4a7bff}
+#codeInput::placeholder{color:#6f84c9}
 </style>
 
 <body>
@@ -491,7 +536,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 <div class="overlay" id="hatchOv">
   <div class="hatchwin">
     <div class="hatchstage" id="hatchStage"></div>
-    <div id="hatchInfo" style="min-height:116px"></div>
+    <div id="hatchInfo"></div>
     <button class="btn green" id="hatchOk" style="display:none;font-size:21px;padding:11px 44px">Awesome!</button>
   </div>
 </div>
@@ -534,6 +579,12 @@ const EGGS=[
     {id:'octopus',name:'Octopus',emoji:'🐙',power:22,rar:'Legendary',w:13},
     {id:'kraken',name:'Kraken',emoji:'🦑',power:32,rar:'Mythic',w:1.8},
     {id:'whale',name:'Whale',emoji:'🐋',power:50,rar:'Secret',w:0.2}]},
+  {id:'magma',name:'Magma Egg',cost:6000,cur:'cash',c:['#ffb347','#e8410c','#ffe14d'],pets:[
+    {id:'magmaslime',name:'Magma Slime',emoji:'🔥',power:20,rar:'Rare',w:60},
+    {id:'lavasalamander',name:'Lava Salamander',emoji:'🦎',power:28,rar:'Epic',w:28},
+    {id:'babygolem',name:'Baby Golem',emoji:'🪨',power:40,rar:'Legendary',w:11},
+    {id:'phoenix',name:'Phoenix',emoji:'🐦‍🔥',power:60,rar:'Mythic',w:0.9},
+    {id:'magmadragon',name:'Magma Dragon',emoji:'🐉',power:100,rar:'Secret',w:0.1}]},
   {id:'exclusive1',name:'Exclusive Egg #1',cost:20,sale3:50,cur:'dia',ex:true,choc:true,noLuck:true,c:['#a8693a','#5a3217','#f1d9b5'],pets:[
     {id:'cookiecat',name:'Cookie Cat',emoji:'🍪',mult:1.1,rar:'Exclusive',w:60},
     {id:'donutdog',name:'Donut Dog',emoji:'🍩',mult:1.2,rar:'Exclusive',w:28},
@@ -554,9 +605,10 @@ const IDX_PERM={5:'luck',10:'hatch',15:'cash'};
 const IDX_LUCK=1.05,IDX_CASH=1.10,IDX_HATCH=1/1.05;
 const idxHas=n=>(S.idxClaimed||[]).includes(n);
 const idxLabel=n=>IDX_PERM[n]==='luck'?'🍀 +5% Luck':IDX_PERM[n]==='hatch'?'⚡ +5% Hatch Speed':'💰 +10% Cash';
-const AUTO_UPG=[5000,25000,100000];      // cena kolejnych ulepszeń Auto Tap (max 3)
-const AUTO_RATES=[1,1.5,2,3];            // tapy na sekundę: poziom 0..3
+const AUTO_UPG=[1500,3500,12000,25000];      // cena kolejnych ulepszeń Auto Tap (max 4)
+const AUTO_RATES=[1,1.5,2,3,4];            // tapy na sekundę: poziom 0..4
 const BOOST_MULT=3;                      // Fast Auto Tap boost = x3
+const CODES={magma:{dia:2,boost:'cash'}};   // code (lowercase) -> reward
 const G6_COST=60,SECRET_COST=80,LUCK_BONUS=1.35,SECRET_BONUS=1.25,HATCH_FAST=.6;
 const BKEY={cash:'bCash',auto:'bAuto',luck:'bLuck',hatch:'bHatch'};
 const WIN={eggs:['Eggs','#ff9a1f'],pets:['My Pets','#22c55e'],auto:['Auto Tap','#2f8bff'],shop:['Exclusive Shop','#ff3d9a'],index:['Index','#a855f7'],settings:['Settings','#7d8bb8']};
@@ -567,7 +619,7 @@ const WIN={eggs:['Eggs','#ff9a1f'],pets:['My Pets','#22c55e'],auto:['Auto Tap','
 const SAVE_KEY='pet-the-pet-new-game-v1';
 const def=()=>({cash:0,dia:0,prog:0,pets:{cat:1},eq:'cat',auto:false,autoLvl:0,idxClaimed:[],autoOn:true,bCash:0,bAuto:0,claps:0,
   inv:{cash:0,auto:0,luck:0,hatch:0},world:'normal',eqE:'cat',g6:false,gSecret:false,bLuck:0,bHatch:0,
-  musicOn:true,musicVol:.5,sfxOn:true,sfxVol:.8,fx:true,nums:true,hideBoosts:false,animBg:true});
+  musicOn:true,musicVol:.5,sfxOn:true,sfxVol:.8,fx:true,nums:true,hideBoosts:false,animBg:true,codes:[]});
 function load(){
   let s=def();
   try{const r=localStorage.getItem(SAVE_KEY);if(r)s=Object.assign(def(),JSON.parse(r))}catch(e){}
@@ -706,7 +758,7 @@ function buildBg(ev){
     'polygon(25% 0,100% 20%,90% 85%,30% 100%,0 40%)','polygon(10% 5%,95% 0,100% 60%,60% 100%,0 75%)',
     'polygon(0 25%,45% 0,100% 30%,75% 100%,20% 85%)','polygon(15% 0,85% 8%,100% 55%,70% 100%,5% 70%)'];
   const small=innerWidth<=700;
-  const n=small?11:22;
+  const n=small?8:22;
   for(let i=0;i<n;i++){
     const d=document.createElement('div');d.className='shard';
     const w=110+Math.random()*300,h=w*(.6+Math.random()*.7);
@@ -724,8 +776,10 @@ function buildBg(ev){
 ========================================================= */
 const petEl=$('#pet');
 let fxLive=0,partLive=0;
+const MOB=matchMedia('(pointer:coarse)').matches||innerWidth<=700;
+const FX_MAX=MOB?7:14,PART_MAX=MOB?30:60;
 function floatText(txt,x,y,cls){
-  if(!S.nums||fxLive>=14)return;
+  if(!S.nums||fxLive>=FX_MAX)return;
   fxLive++;
   const d=document.createElement('div');d.className='float '+(cls||'');d.textContent=txt;
   d.style.left=x+'px';d.style.top=y+'px';d.style.setProperty('--dx',(Math.random()*80-40)+'px');
@@ -736,7 +790,8 @@ function ring(x,y){
   const r=document.createElement('i');r.className='ring';r.style.left=x+'px';r.style.top=y+'px';document.body.appendChild(r);setTimeout(()=>r.remove(),520);
 }
 function burst(x,y,n){
-  if(!S.fx||partLive>60)return;
+  if(!S.fx||partLive>PART_MAX)return;
+  if(MOB)n=Math.max(3,Math.ceil(n*.6));
   partLive+=n;
   const cols=['#ffe14d','#ff5470','#4cc9f0','#7dff8a','#ff9f1c','#ffffff','#c28bff'];
   for(let i=0;i<n;i++){
@@ -971,10 +1026,16 @@ function renderPanel(){
         ${S.gSecret?owned:`<button class="btn gold" data-gp="gSecret" data-cost="${SECRET_COST}" data-cur="dia">💎 ${SECRET_COST}</button>`}
       </div>
       <div class="sect">Boosts</div>
-      ${boostCard('💰','2x Cash Boost','Double Cash From Every Tap For 5 Minutes.','cash','gold')}
+      ${boostCard('💰','x2 Cash','Double Cash From Every Tap For 5 Minutes.','cash','gold')}
       ${boostCard('⚡','Fast Auto Tap','Auto Tap Gets 3x Faster For 5 Minutes.','auto','blue')}
       ${boostCard('🍀','Lucky','You Get 35% More Luck For 5 Minutes.','luck','green')}
       ${boostCard('🥚','Fast Hatch','Open Eggs 40% Faster For 5 Minutes.','hatch','pink')}
+      <div class="sect">Codes</div>
+      <div class="card">
+        <h3>🎟️ Redeem Code</h3>
+        <p>You Can Enter A Code Here And Redeem It For Rewards!</p>
+        <div class="coderow"><input id="codeInput" type="text" maxlength="24" placeholder="Enter Code" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"><button class="btn green" id="redeemBtn">Redeem</button></div>
+      </div>
       <div class="coll">You Earn <b>1 💎 Every Minute</b> You Play!</div>`;
   }
   refreshButtons();
@@ -991,7 +1052,7 @@ function refreshButtons(){
    HUD
 ========================================================= */
 let lastEq=null,lastChips=null,lastCash=-1,lastDia=-1;
-const BOOSTS=[['bCash','💰 2x Cash',''],['bAuto','⚡ Fast Auto Tap','fast'],['bLuck','🍀 Lucky','luck'],['bHatch','🥚 Fast Hatch','hatch']];
+const BOOSTS=[['bCash','💰 x2 Cash',''],['bAuto','⚡ Fast Auto Tap','fast'],['bLuck','🍀 Lucky','luck'],['bHatch','🥚 Fast Hatch','hatch']];
 function bump(id){const e=$(id);e.classList.remove('bump');void e.offsetWidth;e.classList.add('bump')}
 function updateHUD(){
   const eqId=getEq(),p=PET[eqId];
@@ -1234,9 +1295,10 @@ document.addEventListener('click',e=>{
     const k=ub.dataset.useboost;
     if(!(S.inv[k]>0)){sfxNo();return}
     S.inv[k]--;S[BKEY[k]]+=BOOST_SECONDS;sfxBuy();
-    toast(({cash:'💰 2x Cash Active For 5 Minutes!',auto:'⚡ Fast Auto Tap For 5 Minutes!',luck:'🍀 Lucky: +35% Luck For 5 Minutes!',hatch:'🥚 Fast Hatch: 40% Faster For 5 Minutes!'})[k]);
+    toast(({cash:'💰 x2 Cash Active For 5 Minutes!',auto:'⚡ Fast Auto Tap For 5 Minutes!',luck:'🍀 Lucky: +35% Luck For 5 Minutes!',hatch:'🥚 Fast Hatch: 40% Faster For 5 Minutes!'})[k]);
     save();if(k==='luck')renderPanel();updateHUD();return;
   }
+  if(t.id==='redeemBtn'){redeemCode();return}
   if(t.id==='resetBtn'){$('#confirmOv').classList.add('show');return}
   if(t.id==='confirmNo'||t===$('#confirmOv')){$('#confirmOv').classList.remove('show');return}
   if(t.id==='confirmYes'){
@@ -1248,6 +1310,21 @@ document.addEventListener('click',e=>{
     return;
   }
 });
+function redeemCode(){
+  const inp=$('#codeInput');if(!inp)return;
+  const c=inp.value.trim().toLowerCase();
+  if(!c){toast('⚠️ Enter A Code First');sfxNo();return}
+  const r=CODES[c];
+  if(!r){toast('❌ Invalid Code');sfxNo();return}
+  if((S.codes||[]).includes(c)){toast('⚠️ Code Already Redeemed');sfxNo();return}
+  S.codes=[...(S.codes||[]),c];
+  if(r.cash)S.cash+=r.cash;
+  if(r.dia)S.dia+=r.dia;
+  if(r.boost)S.inv[r.boost]=(S.inv[r.boost]||0)+1;
+  sfxBuy();toast('🎟️ Code Redeemed!'+(r.cash?' +'+fmt(r.cash)+' 💵':'')+(r.dia?' +'+r.dia+' 💎':'')+(r.boost?' +1 x2 Cash':''));
+  inp.value='';save();updateHUD();
+}
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target&&e.target.id==='codeInput'){e.preventDefault();redeemCode()}});
 /* volume sliders */
 document.addEventListener('input',e=>{
   const k=e.target.dataset&&e.target.dataset.vol;if(!k)return;
@@ -1270,7 +1347,7 @@ setInterval(()=>{
   const dt=Math.min((now-last)/1000,65);last=now;
   S.prog+=dt;
   while(S.prog>=60){S.prog-=60;S.dia++;toast('💎 +1 Diamond!');tone(1200,.2,'triangle',.08);tone(1600,.2,'triangle',.06,.1)}
-  if(S.bCash>0){S.bCash=Math.max(0,S.bCash-dt);if(S.bCash===0)toast('💰 2x Cash Boost Ended')}
+  if(S.bCash>0){S.bCash=Math.max(0,S.bCash-dt);if(S.bCash===0)toast('💰 x2 Cash Ended')}
   if(S.bAuto>0&&S.auto){S.bAuto=Math.max(0,S.bAuto-dt);if(S.bAuto===0)toast('⚡ Fast Auto Tap Ended')}
   if(S.bLuck>0){S.bLuck=Math.max(0,S.bLuck-dt);if(S.bLuck===0){toast('🍀 Lucky Ended');if(curTab==='eggs'||curTab==='shop')renderPanel()}}
   if(S.bHatch>0){S.bHatch=Math.max(0,S.bHatch-dt);if(S.bHatch===0)toast('🥚 Fast Hatch Ended')}
