@@ -600,8 +600,8 @@ const LIMITED_IDS=[];   // no limited pets right now (tab stays in Index)
 const TOTAL_PETS=NORMAL_IDS.length;
 const AUTO_COST=1000,BOOST_SECONDS=300;
 const BOOST_COSTS={hatch:8,cash:12,auto:15,luck:20};   // diamonds per boost
-const IDX_MILESTONES=[5,10,15];   // Index: 5 = +5% Luck, 10 = +5% Hatch Speed, 15 = +10% Cash (all permanent)
-const IDX_PERM={5:'luck',10:'hatch',15:'cash'};
+const IDX_MILESTONES=[5,10,15,20];   // Index: 5 = +5% Luck, 10 = +5% Hatch Speed, 15 = +10% Cash (all permanent)
+const IDX_PERM={5:'luck',10:'hatch',15:'cash',20:'hatch'};
 const IDX_LUCK=1.05,IDX_CASH=1.10,IDX_HATCH=1/1.05;
 const idxHas=n=>(S.idxClaimed||[]).includes(n);
 const idxLabel=n=>IDX_PERM[n]==='luck'?'🍀 +5% Luck':IDX_PERM[n]==='hatch'?'⚡ +5% Hatch Speed':'💰 +10% Cash';
@@ -1142,7 +1142,7 @@ function openEgg(id,qty,free,auto){
   if(!auto)autoH.on=false;
   clearTimeout(autoH.timer);autoH.timer=null;
   autoH.ok=!free&&id!=='exclusive1';autoH.id=id;autoH.qty=qty;autoH.ready=false;
-  const k=(S.bHatch>0?HATCH_FAST:1)*(idxHas(10)?IDX_HATCH:1);          // Fast Hatch = 40% faster
+  const k=(S.bHatch>0?HATCH_FAST:1)*(idxHas(10)?IDX_HATCH:1)*(idxHas(20)?IDX_HATCH:1);          // Fast Hatch = 40% faster
   const pets=[],isNew=[];let equipped=null;
   for(let n=0;n<qty;n++){
     const pet=roll(e);pets.push(pet);
