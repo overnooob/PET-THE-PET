@@ -42,6 +42,16 @@ button{font-family:inherit;font-weight:800;cursor:pointer}
 .cur .val{font-size:27px;font-weight:900;line-height:1.15;text-shadow:0 2px 0 rgba(0,0,0,.55)}
 .cur.cash .val{color:#8dffa8}
 .cur.dia .val{color:#8fe9ff}
+.dbtn.ticket{--c:#ff4d8d}
+@media(min-width:1001px) and (max-height:780px){.dock{gap:7px}.dbtn{padding:4px 0 4px}.dbtn .e{font-size:25px}.dbtn .l{font-size:10px}}
+.rafwrap{display:grid;place-items:center;padding:6px 0}
+.rafghost{font-size:96px;line-height:1;cursor:pointer;filter:drop-shadow(0 6px 3px rgba(0,0,0,.4))}
+.rafclock{text-align:center;font-size:17px}
+.rafclock b{color:#ffe14d;font-size:21px}
+.rafbar{height:14px;border-radius:8px;background:rgba(0,0,0,.45);border:2px solid var(--ink);overflow:hidden;margin:8px 0}
+.rafbar i{display:block;height:100%;background:linear-gradient(90deg,#ff8fc0,#ff3d7f);border-radius:6px;transition:width .2s}
+.rafstats{display:flex;justify-content:space-between;gap:8px;font-size:14px}
+.rafres{text-align:center;font-size:14.5px;margin:0 0 10px}
 .cur.bump{animation:bump .25s ease-out}
 @keyframes bump{40%{transform:scale(1.09)}}
 .plus{position:absolute;right:7px;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:9px;border:3px solid var(--ink);color:#fff;font-size:21px;font-weight:900;line-height:1;padding:0;
@@ -76,7 +86,7 @@ button{font-family:inherit;font-weight:800;cursor:pointer}
 .dbtn .e{font-size:31px;line-height:1.1;display:block;filter:drop-shadow(0 3px 0 rgba(0,0,0,.3))}
 .dbtn .l{font-size:11px;font-weight:900;display:block;line-height:1.1;margin-top:2px;text-shadow:0 2px 0 rgba(0,0,0,.6)}
 .dbtn.orange{--c:#ff9a1f}.dbtn.green{--c:#22c55e}.dbtn.blue{--c:#2f8bff}.dbtn.gray{--c:#7d8bb8}.dbtn.purple{--c:#a855f7}
-.dbtn.shop{--c:#ff3d9a;animation:shopPulse 1.5s ease-in-out infinite}
+.dbtn.shop{--c:#2fa8ff;animation:shopPulse 1.5s ease-in-out infinite}
 @keyframes shopPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
 .dbtn.shop::after{content:'';position:absolute;inset:-6px;border-radius:21px;border:3px solid #ffe14d;opacity:0;animation:halo 1.5s ease-out infinite;pointer-events:none}
 @keyframes halo{0%{opacity:.9;transform:scale(.95)}100%{opacity:0;transform:scale(1.18)}}
@@ -203,7 +213,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
   animation:revealIn .7s cubic-bezier(.2,1.7,.4,1),idle 2.4s ease-in-out .7s infinite}
 @keyframes revealIn{0%{transform:scale(0) rotate(-40deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
 .rname{font-size:32px;font-weight:900;-webkit-text-stroke:7px var(--ink);paint-order:stroke fill;text-shadow:0 4px 0 var(--ink);animation:rin .5s .15s both}
-.rrar{display:inline-block;margin:6px 0;padding:2px 16px;border-radius:10px;background:var(--rc);color:#10152e;font-size:14px;font-weight:900;border:3px solid var(--ink);animation:rin .5s .3s both}
+.rrar{display:inline-block;margin:6px 0;padding:2px 16px;border-radius:10px;background:var(--rcb,var(--rc));color:var(--rct,#10152e);text-shadow:var(--rts,none);font-size:14px;font-weight:900;border:3px solid var(--ink);animation:rin .5s .3s both}
 .rnew{color:#ffe14d;font-size:21px;font-weight:900;-webkit-text-stroke:5px var(--ink);paint-order:stroke fill;animation:chip .8s infinite}
 .rpow{font-size:19px;font-weight:900;color:#8dffa8;text-shadow:0 2px 0 rgba(0,0,0,.5);animation:rin .5s .45s both}
 @keyframes rin{from{opacity:0;transform:translateY(16px) scale(.8)}to{opacity:1;transform:none}}
@@ -247,14 +257,14 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 .mpet{position:relative;flex:1 1 0;max-width:165px;text-align:center;animation:rin .5s both}
 .mpet .rpet{font-size:64px;animation:revealIn .7s cubic-bezier(.2,1.7,.4,1),idle 2.4s ease-in-out .7s infinite}
 .mpet .mn{font-size:13px;font-weight:900;-webkit-text-stroke:4px var(--ink);paint-order:stroke fill;line-height:1.15}
-.mpet .mr{display:inline-block;margin-top:3px;padding:1px 8px;border-radius:8px;background:var(--rc);color:#10152e;font-size:9.5px;font-weight:900;border:2px solid var(--ink)}
+.mpet .mr{display:inline-block;margin-top:3px;padding:1px 8px;border-radius:8px;background:var(--rcb,var(--rc));color:var(--rct,#10152e);text-shadow:var(--rts,none);font-size:9.5px;font-weight:900;border:2px solid var(--ink)}
 .mnew{position:absolute;top:-6px;right:2px;font-size:10px;font-weight:900;color:#ffe14d;-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;animation:chip .8s infinite}
 /* ---------- index / tooltip ---------- */
 #tip{position:fixed;z-index:200;pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .12s,transform .12s;min-width:150px;max-width:230px;text-align:center;
   background:linear-gradient(180deg,#1b2566,#0e1445);border:3px solid var(--ink);border-radius:14px;padding:8px 14px 9px;box-shadow:0 5px 0 var(--ink),0 0 24px rgba(90,150,255,.5)}
 #tip.show{opacity:1;transform:none}
 #tip .tn{font-size:17px;font-weight:900;-webkit-text-stroke:4px var(--ink);paint-order:stroke fill;line-height:1.2}
-#tip .tr{display:inline-block;margin:4px 0;padding:1px 12px;border-radius:9px;background:var(--rc);color:#10152e;font-size:12px;font-weight:900;border:2px solid var(--ink)}
+#tip .tr{display:inline-block;margin:4px 0;padding:1px 12px;border-radius:9px;background:var(--rcb,var(--rc));color:var(--rct,#10152e);text-shadow:var(--rts,none);font-size:12px;font-weight:900;border:2px solid var(--ink)}
 #tip .tv{font-size:15px;font-weight:900;color:#8dffa8}
 #tip .tv2{font-size:12.5px}
 #tip .tc{margin-top:3px;font-size:12px;font-weight:800;color:#bcd0ff}
@@ -484,6 +494,20 @@ html{overscroll-behavior:none}
 #codeInput{flex:1;min-width:0;height:44px;padding:0 12px;border-radius:12px;border:3px solid var(--ink);background:#0b1236;color:#fff;font-family:inherit;font-weight:800;font-size:16px;outline:none;-webkit-user-select:text;user-select:text;box-shadow:inset 0 3px 0 rgba(0,0,0,.35)}
 #codeInput:focus{border-color:#4a7bff}
 #codeInput::placeholder{color:#6f84c9}
+
+/* limited pumpkin badge on egg cards */
+.egg-card{position:relative}
+.egg-card.hasLim{padding-top:34px}
+.limbadge{position:absolute;top:7px;right:9px;padding:3px 10px;border-radius:999px;border:2px solid var(--ink);background:linear-gradient(180deg,#ffb347,#ff7a00);color:#fff;font-size:11.5px;font-weight:900;text-shadow:0 1px 0 rgba(0,0,0,.5);box-shadow:0 2px 0 var(--ink);white-space:nowrap;cursor:pointer}
+@media(max-width:360px){.limbadge{font-size:10px;padding:3px 7px}}
+
+/* ---- NEW UPDATE countdown (bottom right) ---- */
+.upd{position:fixed;right:14px;bottom:14px;z-index:20;pointer-events:none;text-align:center;padding:7px 14px 8px;border-radius:14px;border:3px solid var(--ink);background:linear-gradient(180deg,#2d3a86,#1c2563);box-shadow:inset 0 2px 0 rgba(255,255,255,.18),0 5px 0 var(--ink)}
+.upd .ut{font-size:15px;font-weight:900;letter-spacing:.5px;color:#ffe14d;-webkit-text-stroke:4px var(--ink);paint-order:stroke fill;animation:chip 1.2s infinite}
+.upd .uc{font-size:24px;font-weight:900;font-variant-numeric:tabular-nums;color:#fff;-webkit-text-stroke:5px var(--ink);paint-order:stroke fill;line-height:1.15}
+.upd.now .uc{color:#5ee06a;font-size:28px}
+@media(max-width:1000px){.upd{right:8px;bottom:calc(84px + var(--sb,0px));padding:5px 10px 6px}.upd .ut{font-size:12px}.upd .uc{font-size:19px}.upd.now .uc{font-size:22px}}
+@media(max-height:520px) and (orientation:landscape){.upd{bottom:8px;right:calc(8px + env(safe-area-inset-right,0px))}.upd .ut{font-size:11px}.upd .uc{font-size:16px}}
 </style>
 
 <body>
@@ -496,7 +520,10 @@ html{overscroll-behavior:none}
   <button class="dbtn shop" data-win="shop"><span class="e">💎</span><span class="l">Exclusive Shop</span></button>
   <button class="dbtn purple idx" data-win="index" id="idxBtn"><span class="e">📖</span><span class="l">Index</span></button>
   <button class="dbtn gray" data-win="settings"><span class="e">⚙️</span><span class="l">Settings</span></button>
+  <button class="dbtn ticket" data-win="raffle"><span class="e">🎟️</span><span class="l">Raffle</span></button>
 </div>
+
+<div class="upd" id="upd"><div class="ut">NEW UPDATE!</div><div class="uc" id="updClock">0:00:00:00</div></div>
 
 <div class="app">
   <div class="top">
@@ -563,6 +590,7 @@ html{overscroll-behavior:none}
    DATA
 ========================================================= */
 const RAR={Common:'#b0b8d0',Uncommon:'#5ee06a',Rare:'#4cc9f0',Epic:'#b565ff',Legendary:'#ffc83d',Mythic:'#ff4d9d',Exclusive:'#a855f7',Secret:'var(--rainbow)'};
+const rcv=r=>`--rc:${RAR[r]}`;
 
 const EGGS=[
   {id:'basic',name:'Basic Egg',cost:150,cur:'cash',c:['#8be9fd','#3a86ff','#ffffff'],pets:[
@@ -585,6 +613,12 @@ const EGGS=[
     {id:'babygolem',name:'Baby Golem',emoji:'🪨',power:40,rar:'Legendary',w:11},
     {id:'phoenix',name:'Phoenix',emoji:'🐦‍🔥',power:60,rar:'Mythic',w:0.9},
     {id:'magmadragon',name:'Magma Dragon',emoji:'🐉',power:100,rar:'Secret',w:0.1}]},
+  {id:'frost',name:'Frost Egg',cost:9000,cur:'cash',c:['#d6f4ff','#4fb8f5','#ffffff'],pets:[
+    {id:'penguin',name:'Penguin',emoji:'🐧',power:30,rar:'Rare',w:60},
+    {id:'seal',name:'Seal',emoji:'🦭',power:42,rar:'Epic',w:28},
+    {id:'arcticfox',name:'Arctic Fox',emoji:'🦊',power:58,rar:'Legendary',w:10.9},
+    {id:'polarbear',name:'Polar Bear',emoji:'🐻‍❄️',power:85,rar:'Mythic',w:1},
+    {id:'reindeer',name:'Reindeer',emoji:'🦌',power:140,rar:'Secret',w:0.1}]},
   {id:'exclusive1',name:'Exclusive Egg #1',cost:20,sale3:50,cur:'dia',ex:true,choc:true,noLuck:true,c:['#a8693a','#5a3217','#f1d9b5'],pets:[
     {id:'cookiecat',name:'Cookie Cat',emoji:'🍪',mult:1.1,rar:'Exclusive',w:60},
     {id:'donutdog',name:'Donut Dog',emoji:'🍩',mult:1.2,rar:'Exclusive',w:28},
@@ -594,24 +628,32 @@ const EGGS=[
 const PET={cat:{id:'cat',name:'Kitty',emoji:'🐱',power:1,rar:'Common'}};
 const EGG={};
 EGGS.forEach(e=>{EGG[e.id]=e;e.pets.forEach(p=>PET[p.id]=p)});
+/* 🎃 LIMITED: Pumpkin can hatch from every normal egg (0.01%) while the event is on.
+   PUMPKIN_END = null -> no end date. Or e.g. new Date('2026-11-07T23:59:59') */
+const PUMPKIN_CHANCE=0.0001,PUMPKIN_END=null;
+const pumpkinChance=()=>Math.min(PUMPKIN_CHANCE*luckMult(),0.01);   // Lucky boost / Index luck also raise the Pumpkin chance
+const pumpkinOn=()=>!PUMPKIN_END||Date.now()<PUMPKIN_END.getTime();
+PET.pumpkin={id:'pumpkin',name:'Pumpkin',emoji:'🎃',mult:1.4,rar:'Exclusive',limited:true};
+PET.ghost={id:'ghost',name:'Ghost',emoji:'👻',mult:1.4,rar:'Exclusive',limited:true};   // Raffle only
+const RAFFLE_COST=20,RAFFLE_STEP=0.05,RAFFLE_MS=600000,RAFFLE_MAX=20;   // entry = 20 💎, each entry in a round adds +5% win chance; draw every RAFFLE_MS, entries reset after the draw
 const TOTAL_ALL=Object.keys(PET).length;
 const NORMAL_IDS=['cat',...EGGS.flatMap(e=>e.pets.map(p=>p.id))];
-const LIMITED_IDS=[];   // no limited pets right now (tab stays in Index)
+const LIMITED_IDS=['pumpkin','ghost'];
 const TOTAL_PETS=NORMAL_IDS.length;
 const AUTO_COST=1000,BOOST_SECONDS=300;
 const BOOST_COSTS={hatch:8,cash:12,auto:15,luck:20};   // diamonds per boost
-const IDX_MILESTONES=[5,10,15,20];   // Index: 5 = +5% Luck, 10 = +5% Hatch Speed, 15 = +10% Cash (all permanent)
-const IDX_PERM={5:'luck',10:'hatch',15:'cash',20:'hatch'};
-const IDX_LUCK=1.05,IDX_CASH=1.10,IDX_HATCH=1/1.05;
+const IDX_MILESTONES=[5,10,15,20,25];   // Index: 5 = +5% Luck, 10 = +5% Hatch Speed, 15 = +10% Cash (all permanent)
+const IDX_PERM={5:'luck',10:'hatch',15:'cash',20:'hatch',25:'auto'};
+const IDX_LUCK=1.05,IDX_CASH=1.10,IDX_HATCH=1/1.05,IDX_AUTO=1.10;
 const idxHas=n=>(S.idxClaimed||[]).includes(n);
-const idxLabel=n=>IDX_PERM[n]==='luck'?'🍀 +5% Luck':IDX_PERM[n]==='hatch'?'⚡ +5% Hatch Speed':'💰 +10% Cash';
+const idxLabel=n=>IDX_PERM[n]==='luck'?'🍀 +5% Luck':IDX_PERM[n]==='hatch'?'⚡ +5% Hatch Speed':IDX_PERM[n]==='auto'?'🤖 +10% Faster Auto Tap':'💰 +10% Cash';
 const AUTO_UPG=[1500,3500,12000,25000];      // cena kolejnych ulepszeń Auto Tap (max 4)
 const AUTO_RATES=[1,1.5,2,3,4];            // tapy na sekundę: poziom 0..4
 const BOOST_MULT=3;                      // Fast Auto Tap boost = x3
-const CODES={magma:{dia:2,boost:'cash'}};   // code (lowercase) -> reward
-const G6_COST=60,SECRET_COST=80,LUCK_BONUS=1.35,SECRET_BONUS=1.25,HATCH_FAST=.6;
+const CODES={halloween:{boosts:['luck','hatch']}};   // code (lowercase) -> reward
+const PACK_COST=40,PACK_COST_OLD=48,G6_COST=60,SECRET_COST=80,LUCK_BONUS=1.35,SECRET_BONUS=1.25,HATCH_FAST=.6;
 const BKEY={cash:'bCash',auto:'bAuto',luck:'bLuck',hatch:'bHatch'};
-const WIN={eggs:['Eggs','#ff9a1f'],pets:['My Pets','#22c55e'],auto:['Auto Tap','#2f8bff'],shop:['Exclusive Shop','#ff3d9a'],index:['Index','#a855f7'],settings:['Settings','#7d8bb8']};
+const WIN={eggs:['Eggs','#ff9a1f'],pets:['My Pets','#22c55e'],auto:['Auto Tap','#2f8bff'],shop:['Exclusive Shop','#2fa8ff'],index:['Index','#a855f7'],settings:['Settings','#7d8bb8'],raffle:['Raffle','#ff4d8d']};
 
 /* =========================================================
    STATE / SAVE
@@ -619,7 +661,7 @@ const WIN={eggs:['Eggs','#ff9a1f'],pets:['My Pets','#22c55e'],auto:['Auto Tap','
 const SAVE_KEY='pet-the-pet-new-game-v1';
 const def=()=>({cash:0,dia:0,prog:0,pets:{cat:1},eq:'cat',auto:false,autoLvl:0,idxClaimed:[],autoOn:true,bCash:0,bAuto:0,claps:0,
   inv:{cash:0,auto:0,luck:0,hatch:0},world:'normal',eqE:'cat',g6:false,gSecret:false,bLuck:0,bHatch:0,
-  musicOn:true,musicVol:.5,sfxOn:true,sfxVol:.8,fx:true,nums:true,hideBoosts:false,animBg:true,codes:[]});
+  musicOn:true,musicVol:.5,sfxOn:true,sfxVol:.8,fx:true,nums:true,hideBoosts:false,animBg:true,codes:[],raffle:0,raffleEnd:0,raffleMsg:''});
 function load(){
   let s=def();
   try{const r=localStorage.getItem(SAVE_KEY);if(r)s=Object.assign(def(),JSON.parse(r))}catch(e){}
@@ -822,7 +864,7 @@ function bestBase(w){
 }
 const petPower=q=>powerIn(q,WORLD());
 const fmtP=n=>n<1000?String(+(+n).toFixed(2)):fmt(n);
-const autoRate=()=>AUTO_RATES[S.autoLvl||0]*(S.bAuto>0?BOOST_MULT:1);
+const autoRate=()=>AUTO_RATES[S.autoLvl||0]*(S.bAuto>0?BOOST_MULT:1)*(idxHas(25)?IDX_AUTO:1);
 const fmtRate=r=>String(+r.toFixed(1));
 const luckMult=()=>(S.bLuck>0?LUCK_BONUS:1)*(idxHas(5)?IDX_LUCK:1);
 const gainPerTap=()=>petPower(PET[getEq()])*(S.bCash>0?2:1)*(idxHas(15)?IDX_CASH:1);
@@ -872,7 +914,7 @@ function weightsFor(e){
 const fmtChance=x=>String(+x.toFixed(x<1?3:2));
 function oddsHTML(e){
   const ws=weightsFor(e),t=ws.reduce((a,b)=>a+b,0);
-  return e.pets.map((p,i)=>{const ch=fmtChance(ws[i]/t*100);return `<span class="chip" data-pet="${p.id}" data-chance="${ch}" style="--rc:${RAR[p.rar]}">${ico(p)}${ch}%</span>`}).join('');
+  return e.pets.map((p,i)=>{const ch=fmtChance(ws[i]/t*100);return `<span class="chip" data-pet="${p.id}" data-chance="${ch}" style="${rcv(p.rar)}">${ico(p)}${ch}%</span>`}).join('');
 }
 const CUR_ICON={cash:'💵',dia:'💎'};
 const priceFor=(e,q)=>(q===3&&e.sale3!=null)?e.sale3:e.cost*q;   // sale3 = discounted price for Buy 3
@@ -907,6 +949,21 @@ function toggleFS(){
 const slider=(k,label)=>{const v=Math.round(S[k]*100);
   return `<div class="setrow vol"><span class="sn">${label}</span><input type="range" min="0" max="100" value="${v}" data-vol="${k}" style="--p:${v}%"><span class="vv">${v}%</span></div>`};
 
+function drawRaffle(){
+  const n=S.raffle||0;
+  if(n>0){
+    const ch=Math.min(1,n*RAFFLE_STEP);
+    if(Math.random()<ch){
+      S.pets.ghost=(S.pets.ghost||0)+1;
+      if(petPower(PET.ghost)>petPower(PET[getEq()]))setEq('ghost');
+      S.raffleMsg='';sfxReveal();toast('👻 You Got A Ghost!');
+    }else{
+      sfxNo();toast('🎟️ Raffle Draw: Not Won This Time');
+    }
+  }
+  S.raffle=0;S.raffleEnd=Date.now()+RAFFLE_MS;save();
+  if(curTab==='raffle')renderPanel();
+}
 function openWin(tab){curTab=tab;renderPanel();$('#win').classList.add('show')}
 function closeWin(){$('#win').classList.remove('show');curTab=null}
 
@@ -918,7 +975,8 @@ function renderPanel(){
   if(curTab==='eggs'){
     const list=EGGS.filter(e=>!e.ex);
     p.innerHTML=list.map(e=>`
-      <div class="card egg-card">
+      <div class="card egg-card ${pumpkinOn()?'hasLim':''}">
+        ${pumpkinOn()?`<div class="limbadge" data-pet="pumpkin" data-chance="${fmtChance(pumpkinChance()*100)}">🎃 Pumpkin ${fmtChance(pumpkinChance()*100)}% · Limited Time!</div>`:''}
         ${eggHTML(e,56)}
         <div><div class="nm">${e.name}</div><div class="odds">${oddsHTML(e)}</div></div>
         ${buys(e,[1,3,6])}
@@ -929,7 +987,7 @@ function renderPanel(){
     p.innerHTML=`<div class="coll">Collection: <b>${ids.length}/${TOTAL_ALL}</b> · Tap A Pet To Equip It</div>
       <div class="pets">`+ids.map(id=>{
         const x=PET[id],eq=getEq()===id;
-        return `<div class="petcard ${eq?'eq':''} ${x.limited?'lim':''}" data-equip="${id}" data-pet="${id}" style="--rc:${RAR[x.rar]}">
+        return `<div class="petcard ${eq?'eq':''} ${x.limited?'lim':''}" data-equip="${id}" data-pet="${id}" style="${rcv(x.rar)}">
           <div class="px">x${S.pets[id]}</div><div class="pe">${ico(x)}</div>
           <div class="pn">${x.name}</div><div class="pp">+${fmtP(petPower(x))}</div>${x.mult?`<div class="pm">x${x.mult} Best Pet</div>`:''}${eq?'<div class="tag">EQUIPPED</div>':''}</div>`}).join('')+`</div>`;
   }else if(curTab==='auto'){
@@ -949,13 +1007,13 @@ function renderPanel(){
     }
   }else if(curTab==='index'){
     const owned=ownedCount();
-    const eggOf={};EGGS.forEach(e=>e.pets.forEach(q=>eggOf[q.id]=e.name));
+    const eggOf={};EGGS.forEach(e=>e.pets.forEach(q=>eggOf[q.id]=e.name));eggOf.pumpkin='Any Egg';eggOf.ghost='Raffle';
     const lim=idxTab==='limited';
     const ids=lim?LIMITED_IDS:NORMAL_IDS;
     const cell=id=>{
       const x=PET[id];
       if(!(S.pets[id]>0))return `<div class="petcard locked"><div class="pe">❓</div><div class="pn">???</div><div class="pp" style="color:#8ea2d8;font-size:10.5px">${eggOf[id]||'Starter'}</div></div>`;
-      return `<div class="petcard ${x.limited?'lim':''}" data-pet="${id}" style="--rc:${RAR[x.rar]}"><div class="pe">${ico(x)}</div><div class="pn">${x.name}</div><div class="pp">+${fmtP(petPower(x))}</div></div>`;
+      return `<div class="petcard ${x.limited?'lim':''}" data-pet="${id}" style="${rcv(x.rar)}"><div class="pe">${ico(x)}</div><div class="pn">${x.name}</div><div class="pp">+${fmtP(petPower(x))}</div></div>`;
     };
     const grid=()=>ids.length?`<div class="pets">${ids.map(cell).join('')}</div>`:`<div class="card"><div class="coll" style="padding:18px 0">📆 No Limited Pets Right Now!</div></div>`;
     const head=lim
@@ -977,6 +1035,18 @@ function renderPanel(){
         <button class="btn ${lim?'gray':'purple act'}" data-idxtab="normal">🌍 Normal</button>
         <button class="btn ${lim?'orange act':'gray'}" data-idxtab="limited">📆 Limited</button>
       </div></div>`;
+  }else if(curTab==='raffle'){
+    const n=S.raffle||0,ch=Math.min(1,n*RAFFLE_STEP),full=n>=RAFFLE_MAX;
+    p.innerHTML=`
+      <div class="balance"><div class="cur dia" style="min-width:150px;padding-right:14px"><div class="ci">💎</div><div class="val"><span class="diaVal">${fmt(S.dia)}</span></div></div></div>
+      <div class="rafwrap"><div class="rafghost" data-pet="ghost">👻</div></div>
+      <div class="card rafclock">🎟️ Next Draw In <b id="raftimer">${mmss(Math.max(0,(S.raffleEnd-Date.now())/1000))}</b></div>
+      <div class="card">
+        <div class="rafstats"><span>🎟️ Your Entries: <b>${n}</b></span><span>🍀 Win Chance: <b style="color:#ffe14d">${Math.round(ch*100)}%</b></span></div>
+        <div class="rafbar"><i style="width:${ch*100}%"></i></div>
+        <p style="margin:0 0 10px;font-size:12.5px">Every Entry Adds <b>+${Math.round(RAFFLE_STEP*100)}%</b> Chance. The Winner Is Picked ${RAFFLE_MS===60000?'Every Minute':'Every '+(RAFFLE_MS/60000)+' Minutes'}, Then Entries Reset!</p>
+        ${full?`<div class="btn pink disabled" style="width:100%;text-align:center">Max Entries (100%)</div>`:`<button class="btn pink" data-raffle="1" data-cost="${RAFFLE_COST}" data-cur="dia" style="width:100%">Buy Entry · 💎 ${RAFFLE_COST}</button>`}
+      </div>`;
   }else if(curTab==='settings'){
     p.innerHTML=`
       <div class="sect">🔊 Audio</div>
@@ -1006,7 +1076,13 @@ function renderPanel(){
     const exEggs=EGGS.filter(e=>e.ex&&!e.retired);
     const owned='<div class="btn green disabled maxbtn" style="min-width:92px">✅ Owned</div>';
     p.innerHTML=`
-      <div class="balance"><div class="cur dia" style="min-width:150px;padding-right:14px"><div class="ci">💎</div><div class="val"><span class="diaVal">${S.dia}</span></div></div></div>
+      <div class="balance"><div class="cur dia" style="min-width:150px;padding-right:14px"><div class="ci">💎</div><div class="val"><span class="diaVal">${fmt(S.dia)}</span></div></div></div>
+      <div class="sect">Packs</div>
+      <div class="card shopitem">
+        <div class="bigico">💀</div>
+        <div><h3>SpOoKy PaCk</h3><p style="margin:0">Opens 1 Exclusive Egg #1 + Get 🍀 Lucky And 🥚 Fast Hatch Boosts. Buy As Many As You Want!</p></div>
+        <button class="btn pink" data-buypack="spooky" data-cost="${PACK_COST}" data-cur="dia">💎 <s style="opacity:.65">${PACK_COST_OLD}</s> ${PACK_COST}</button>
+      </div>
       <div class="sect">Eggs</div>
       ${exEggs.map(ex=>`<div class="card egg-card ex">
         ${eggHTML(ex,62)}
@@ -1029,7 +1105,7 @@ function renderPanel(){
       ${boostCard('💰','x2 Cash','Double Cash From Every Tap For 5 Minutes.','cash','gold')}
       ${boostCard('⚡','Fast Auto Tap','Auto Tap Gets 3x Faster For 5 Minutes.','auto','blue')}
       ${boostCard('🍀','Lucky','You Get 35% More Luck For 5 Minutes.','luck','green')}
-      ${boostCard('🥚','Fast Hatch','Open Eggs 40% Faster For 5 Minutes.','hatch','pink')}
+      ${boostCard('🥚','Fast Hatch','Open Eggs 40% Faster For 5 Minutes. Not Active On Exclusive Eggs.','hatch','pink')}
       <div class="sect">Codes</div>
       <div class="card">
         <h3>🎟️ Redeem Code</h3>
@@ -1058,8 +1134,9 @@ function updateHUD(){
   const eqId=getEq(),p=PET[eqId];
   $('#cash').textContent=fmt(S.cash);
   if(S.cash!==lastCash){if(lastCash>=0)bump('#curCash');lastCash=S.cash}
-  $$('.diaVal').forEach(e=>e.textContent=S.dia);
+  $$('.diaVal').forEach(e=>e.textContent=fmt(S.dia));
   if(S.dia!==lastDia){if(lastDia>=0&&S.dia>lastDia)bump('#curDia');lastDia=S.dia}
+  {const rt=$('#raftimer');if(rt)rt.textContent=mmss(Math.max(0,(S.raffleEnd-Date.now())/1000))}
   $('#diaBar').style.width=(S.prog/60*100)+'%';
   $('#diaNext').textContent=mmss(60-S.prog);
   if(lastEq!==eqId){$('#petEmoji').innerHTML=ico(p);$('#petName').textContent=p.name;$('#petName').style.color=RAR[p.rar];lastEq=eqId}
@@ -1098,6 +1175,7 @@ function applyWorld(){
 ========================================================= */
 let hatching=false;
 function roll(e){
+  if(!e.ex&&pumpkinOn()&&Math.random()<pumpkinChance())return PET.pumpkin;
   const ws=weightsFor(e),t=ws.reduce((a,b)=>a+b,0);let r=Math.random()*t;
   for(let i=0;i<e.pets.length;i++){if((r-=ws[i])<0)return e.pets[i]}
   return e.pets[0];
@@ -1142,7 +1220,7 @@ function openEgg(id,qty,free,auto){
   if(!auto)autoH.on=false;
   clearTimeout(autoH.timer);autoH.timer=null;
   autoH.ok=!free&&id!=='exclusive1';autoH.id=id;autoH.qty=qty;autoH.ready=false;
-  const k=(S.bHatch>0?HATCH_FAST:1)*(idxHas(10)?IDX_HATCH:1)*(idxHas(20)?IDX_HATCH:1);          // Fast Hatch = 40% faster
+  const k=(S.bHatch>0&&!e.ex?HATCH_FAST:1)*(idxHas(10)?IDX_HATCH:1)*(idxHas(20)?IDX_HATCH:1);          // Fast Hatch = 40% faster
   const pets=[],isNew=[];let equipped=null;
   for(let n=0;n<qty;n++){
     const pet=roll(e);pets.push(pet);
@@ -1171,17 +1249,17 @@ function openEgg(id,qty,free,auto){
   setTimeout(()=>{
     clearInterval(iv);sfxReveal();
     if(qty===1){
-      stage.innerHTML=`<div class="rays"></div><div class="rpet" style="--rc:${RAR[best.rar]}">${ico(best)}</div>`;
+      stage.innerHTML=`<div class="rays"></div><div class="rpet" style="${rcv(best.rar)}">${ico(best)}</div>`;
     }else{
-      stage.innerHTML=`<div class="rays"></div>${rows(pets.map((q,i)=>`<div class="mpet" style="--rc:${RAR[q.rar]};animation-delay:${i*.12}s"><div class="rpet">${ico(q)}</div><div class="mn" style="color:${RAR[q.rar]}">${q.name}</div><div class="mr" style="--rc:${RAR[q.rar]}">${q.rar.toUpperCase()}</div>${isNew[i]?'<div class="mnew">NEW!</div>':''}</div>`))}`;
+      stage.innerHTML=`<div class="rays"></div>${rows(pets.map((q,i)=>`<div class="mpet" style="${rcv(q.rar)};animation-delay:${i*.12}s"><div class="rpet">${ico(q)}</div><div class="mn" style="color:${RAR[q.rar]}">${q.name}</div><div class="mr" style="${rcv(q.rar)}">${q.rar.toUpperCase()}</div>${isNew[i]?'<div class="mnew">NEW!</div>':''}</div>`))}`;
     }
     const flash=document.createElement('div');flash.className='flash';$('.hatchwin').appendChild(flash);setTimeout(()=>flash.remove(),750);
     fanfare(best,stage.getBoundingClientRect());
-    const top=best.rar==='Secret'?'<div class="rnew">🌈 SECRET PET! 🌈</div>':(best.rar==='Mythic'?'<div class="rnew">🌈 Mega Rare! 🌈</div>':'');
+    const top='';
     if(qty===1){
       $('#hatchInfo').innerHTML=`${top}${isNew[0]?'<div class="rnew" style="font-size:17px">✨ New Pet! ✨</div>':''}
       <div class="rname" style="color:${RAR[best.rar]}">${best.name}</div>
-      <div class="rrar" style="--rc:${RAR[best.rar]}">${best.rar.toUpperCase()}</div>
+      <div class="rrar" style="${rcv(best.rar)}">${best.rar.toUpperCase()}</div>
       <div class="rpow">${best.mult?`x${best.mult} Your Best Pet<br>(+${fmtP(petPower(best))} Per Tap)`:`+${fmtP(petPower(best))} Per Tap`}</div>
       ${equipped?'<div style="margin-top:4px;font-size:14px">✅ Equipped Automatically!</div>':''}${autoBtnHTML()}`;
     }else{
@@ -1210,7 +1288,7 @@ function showTip(el){
   const q=PET[el.dataset.pet];if(!q)return;
   const val=q.mult?`x${q.mult} Your Best Pet<br><span class="tv2">(+${fmtP(petPower(q))} Per Tap)</span>`:`+${fmtP(petPower(q))} Per Tap`;
   tipEl.innerHTML=`<div class="tn" style="color:#fff">${ico(q)} ${q.name}</div>
-    <div class="tr" style="--rc:${RAR[q.rar]}">${q.rar.toUpperCase()}</div>
+    <div class="tr" style="${rcv(q.rar)}">${q.rar.toUpperCase()}</div>
     <div class="tv">${val}</div>${el.dataset.chance?`<div class="tc">Chance: ${el.dataset.chance}%</div>`:''}<div class="tc">${q.limited?'📆 Limited':'🌍 Normal'}</div>`;
   tipEl.classList.add('show');
   const r=el.getBoundingClientRect(),w=tipEl.offsetWidth,h=tipEl.offsetHeight;
@@ -1265,6 +1343,7 @@ document.addEventListener('click',e=>{
     S.idxClaimed=[...(S.idxClaimed||[]),n];
     if(IDX_PERM[n]==='luck')toast('🍀 +5% Luck Forever! ('+n+' Pets)');
     else if(IDX_PERM[n]==='hatch')toast('⚡ +5% Hatch Speed Forever! ('+n+' Pets)');
+    else if(IDX_PERM[n]==='auto')toast('🤖 +10% Faster Auto Tap Forever! ('+n+' Pets)');
     else toast('💰 +10% Cash Forever! ('+n+' Pets)');
     sfxBuy();save();renderPanel();updateHUD();return;
   }
@@ -1274,6 +1353,22 @@ document.addEventListener('click',e=>{
     return;
   }
   if(t.closest('[data-toggleauto]')){S.autoOn=!S.autoOn;save();renderPanel();updateHUD();return}
+  if(t.closest('[data-buypack]')){
+    if(hatching)return;
+    if(!pay('dia',PACK_COST))return;
+    S.inv.luck=(S.inv.luck||0)+1;S.inv.hatch=(S.inv.hatch||0)+1;
+    save();updateHUD();
+    toast('💀 SpOoKy PaCk! +1 Lucky +1 Fast Hatch Boost');
+    openEgg('exclusive1',1,true);
+    return;
+  }
+  if(t.closest('[data-raffle]')){
+    if((S.raffle||0)>=RAFFLE_MAX)return;
+    if(!pay('dia',RAFFLE_COST))return;
+    S.raffle=(S.raffle||0)+1;sfxBuy();
+    toast('🎟️ Entry Bought! '+Math.round(S.raffle*RAFFLE_STEP*100)+'% Chance');
+    save();renderPanel();updateHUD();return;
+  }
   const gp=t.closest('[data-gp]');
   if(gp){
     const k=gp.dataset.gp;if(S[k])return;
@@ -1320,8 +1415,8 @@ function redeemCode(){
   S.codes=[...(S.codes||[]),c];
   if(r.cash)S.cash+=r.cash;
   if(r.dia)S.dia+=r.dia;
-  if(r.boost)S.inv[r.boost]=(S.inv[r.boost]||0)+1;
-  sfxBuy();toast('🎟️ Code Redeemed!'+(r.cash?' +'+fmt(r.cash)+' 💵':'')+(r.dia?' +'+r.dia+' 💎':'')+(r.boost?' +1 x2 Cash':''));
+  (r.boosts||[]).forEach(k=>S.inv[k]=(S.inv[k]||0)+1);
+  sfxBuy();toast('🎟️ Code Redeemed!'+(r.cash?' +'+fmt(r.cash)+' 💵':'')+(r.dia?' +'+fmt(r.dia)+' 💎':'')+(r.boosts?' +'+r.boosts.map(k=>({cash:'x2 Cash',auto:'Fast Auto Tap',luck:'Lucky',hatch:'Fast Hatch'})[k]).join(' + '):''));
   inp.value='';save();updateHUD();
 }
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target&&e.target.id==='codeInput'){e.preventDefault();redeemCode()}});
@@ -1346,6 +1441,7 @@ setInterval(()=>{
   const now=Date.now();
   const dt=Math.min((now-last)/1000,65);last=now;
   S.prog+=dt;
+  if(!S.raffleEnd||S.raffleEnd-Date.now()>RAFFLE_MS)S.raffleEnd=Date.now()+RAFFLE_MS;else if(Date.now()>=S.raffleEnd)drawRaffle();
   while(S.prog>=60){S.prog-=60;S.dia++;toast('💎 +1 Diamond!');tone(1200,.2,'triangle',.08);tone(1600,.2,'triangle',.06,.1)}
   if(S.bCash>0){S.bCash=Math.max(0,S.bCash-dt);if(S.bCash===0)toast('💰 x2 Cash Ended')}
   if(S.bAuto>0&&S.auto){S.bAuto=Math.max(0,S.bAuto-dt);if(S.bAuto===0)toast('⚡ Fast Auto Tap Ended')}
@@ -1363,6 +1459,22 @@ setInterval(()=>{
 window.addEventListener('beforeunload',save);
 
 applyWorld();updateHUD();
+
+/* ---- NEW UPDATE countdown: days:hh:mm:ss until 29 Oct 2026, 15:00 (local time) ---- */
+(function(){
+  const target=new Date(2026,9,29,15,0,0).getTime();
+  const box=document.getElementById('upd'),clk=document.getElementById('updClock');
+  if(!box||!clk)return;
+  const pad=n=>String(n).padStart(2,'0');
+  function tick(){
+    const diff=target-Date.now();
+    if(diff<=0){clk.textContent='NOW!';box.classList.add('now');return}
+    box.classList.remove('now');
+    const t=Math.floor(diff/1000),d=Math.floor(t/86400),h=Math.floor(t%86400/3600),m=Math.floor(t%3600/60),sec=t%60;
+    clk.textContent=d+':'+pad(h)+':'+pad(m)+':'+pad(sec);
+  }
+  tick();setInterval(tick,250);
+})();
 </script>
 </body>
 </html>
